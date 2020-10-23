@@ -1,8 +1,4 @@
-from flask import Flask, jsonify, render_template, request #need
-import json
-import numpy as np
-import pandas as pd
-import requests
+from flask import Flask #need
 
 app = Flask(__name__)
 
@@ -11,6 +7,6 @@ app = Flask(__name__)
 ####################### new ########################
 @app.route('/')
 def index():
-  return myTemplate.html
+  return "My first python on Git Heroku"
   #return "Helloooooo"
 
