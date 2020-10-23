@@ -1,11 +1,11 @@
-Flask==0.11.1
+Flask
 get
-gunicorn==19.6.0
+gunicorn
 post
 requests
 wikipedia
 line-bot-sdk
-pandas==0.20.3
+pandas
 googletrans
 geopy
 xlrd
