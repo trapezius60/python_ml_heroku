@@ -10,6 +10,17 @@ def index():
     return "hello"
 
 
-if __name__ == '__main__':
-  app.run(debug=True)
+#if __name__ == '__main__':
+ # app.run(debug=True)
 
+#from flask import Flask #need
+
+#app = Flask(__name__)
+
+
+
+####################### new ########################
+#@app.route('/')
+#def index():
+  #return "My first python on Git Heroku"
+  #return "Helloooooo"
