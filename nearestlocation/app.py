@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-  return render_template('index.html')
+  return "hello"
 
 # ส่วน callback สำหรับ Webhook
 @app.route('/callback', methods=['POST'])
