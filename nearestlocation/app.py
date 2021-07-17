@@ -20,7 +20,7 @@ def callback():
     body = request.get_data(as_text=True)
     # print(body)
     req = request.get_json(silent=True, force=True)
-    intent = req["queryResult"]["intent"]["displayName"] 
+    intent = req['queryResult']['intent']['displayName'] 
     text = req['originalDetectIntentRequest']['payload']['data']['message']['text'] 
     reply_token = req['originalDetectIntentRequest']['payload']['data']['replyToken']
     id = req['originalDetectIntentRequest']['payload']['data']['source']['userId']
@@ -38,7 +38,7 @@ def callback():
     
     
 def reply(intent,text,reply_token,id,disname):
-    if intent == 'covid 19':
+    if intent == 'covid':
         data = requests.get('https://covid19.th-stat.com/api/open/today')
         json_data = json.loads(data.text)
         Confirmed = json_data['Confirmed']  # ติดเชื้อสะสม
