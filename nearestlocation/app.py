@@ -1,20 +1,42 @@
 
 from flask import Flask, request, render_template
-from linebot.models import *
-from linebot import *
 import json
 import requests
-
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('t8TS42nUWRlHempLf4OLMEf1xoNm96YHojEt71MgX96NGuA9qucXNT/4nJtBscYdXZt/ADJLVbqfcwIbdSrlqsW0s0z6i8GPPWtipaaGnOoj0UhNrGI7eeOXAzRf4A6s1hdq+CraBNPxexpYI3TwowdB04t89/1O/w1cDnyilFU=') #Channel Access Token line
-handler = WebhookHandler('7f819199fc35d2461ceb0191d0fb304d') #Channel Secret of line
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template('index.html')
-  #return "Helloooooo"
+  return render_template('index.html')
+
+# ส่วน callback สำหรับ Webhook
+@app.route('/callback', methods=['POST'])
+def callback():
+  json_line = request.get_json()
+  json_line = json.dumps(json_line)
+  decoded = json.loads(json_line)
+  user = decoded["events"][0]['replyToken']
+  #id=[d['replyToken'] for d in user][0]
+  #print(json_line)
+  print("ผู้ใช้：",user)
+  sendText(user,'งง') # ส่งข้อความ งง
+  return '',200
 
 
-if __name__ == "__main__":
-    app.run()
+def sendText(user, text):
+  LINE_API = 'https://api.line.me/v2/bot/message/reply'
+  Authorization = 'Bearer ENTER_ACCESS_TOKEN' # ใส่ ENTER_ACCESS_TOKEN เข้าไป
+  headers = {
+  'Content-Type': 'application/json; charset=UTF-8',
+  'Authorization':Authorization
+  }
+  data = json.dumps({
+  "replyToken":user,
+  "messages":[{"type":"text","text":text}]})
+  #print("ข้อมูล：",data)
+  r = requests.post(LINE_API, headers=headers, data=data) # ส่งข้อมูล
+  #print(r.text)
+
+
+if __name__ == '__main__':
+  app.run(debug=True)
 
