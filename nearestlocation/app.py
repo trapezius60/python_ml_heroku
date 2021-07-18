@@ -38,7 +38,7 @@ line_bot_api = LineBotApi('t8TS42nUWRlHempLf4OLMEf1xoNm96YHojEt71MgX96NGuA9qucXN
 handler = WebhookHandler('7f819199fc35d2461ceb0191d0fb304d')
 
 
-@app.route('/callback', methods=['POST'])
+@app.route('/callback', methods=['GET', 'POST'])
 def callback():
     body = request.get_data(as_text=True)
     # print(body)
