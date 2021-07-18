@@ -38,47 +38,11 @@ line_bot_api = LineBotApi('t8TS42nUWRlHempLf4OLMEf1xoNm96YHojEt71MgX96NGuA9qucXN
 handler = WebhookHandler('7f819199fc35d2461ceb0191d0fb304d')
 
 
-@app.route('/callback', methods=['POST'])
+@app.route("/callback", methods=['POST'])
 def callback():
     body = request.get_data(as_text=True)
-    # print(body)
-    req = request.get_json(silent=True, force=True)
-    intent = req["queryResult"]["intent"]["displayName"]
-    text = req['originalDetectIntentRequest']['payload']['data']['message']['text'] 
-    reply_token = req['originalDetectIntentRequest']['payload']['data']['replyToken']
-    userid = req['originalDetectIntentRequest']['payload']['data']['source']['userId']
-    disname = line_bot_api.get_profile(id).display_name
-
-    print('id = ' + userid)
-    print('name = ' + disname)
-    print('text = ' + text)
-    print('intent = ' + intent)
-    print('reply_token = ' + reply_token)
-    
-    reply(intent,text,reply_token,userid,disname)
-
+    print(body)
     return 'OK'
-    
-    
-def reply(intent,text,reply_token,userid,disname):
-    if intent == 'covid':
-        data = requests.get('https://covid19.th-stat.com/json/covid19v2/getTodayCases.json')
-        json_data = json.loads(data.text)
-        Confirmed = json_data['Confirmed']  # ติดเชื้อสะสม
-        Recovered = json_data['Recovered']  # หายแล้ว
-        Hospitalized = json_data['Hospitalized']  # รักษาอยู่ใน รพ.
-        Deaths = json_data['Deaths']  # เสียชีวิต
-        NewConfirmed = json_data['NewConfirmed']  # บวกเพิ่ม
-        text_message = TextSendMessage(
-            text='ติดเชื้อสะสม = {} คน(+เพิ่ม{})\nหายแล้ว = {} คน\nรักษาอยู่ใน รพ. = {} คน\nเสียชีวิต = {} คน'.format(
-                Confirmed, NewConfirmed, Recovered, Hospitalized, Deaths))
-
-        line_bot_api.reply_message(reply_token, text_message)
-        
-def replytest(intent,text,reply_token,userid,disname):
-    if intent == 'test':
-        text_message = TextSendMessage(text='ทดสอบสำเร็จ')
-        line_bot_api.reply_message(reply_token,text_message)
 
 if __name__ == "__main__":
     app.run(debug = True)
