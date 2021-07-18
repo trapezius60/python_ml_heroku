@@ -44,7 +44,7 @@ def callback():
     print(body)
     return 'OK'
 
-@app.route('/linenotify')
+@app.route('/linenotify'methods=['POST'])
 def linenotify():
     url = 'https://notify-api.line.me/api/notify'
     token = 'Ei5KLzQrNizl4HZfnQIFzKQeAZYoNYUUzcsWgSX5BWu'
