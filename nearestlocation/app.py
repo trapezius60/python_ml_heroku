@@ -74,6 +74,11 @@ def reply(intent,text,reply_token,userid,disname):
                 Confirmed, NewConfirmed, Recovered, Hospitalized, Deaths))
 
         line_bot_api.reply_message(reply_token, text_message)
+        
+def replytest(intent,text,reply_token,userid,disname):
+    if intent == 'test':
+        text_message = TextSendMessage(text='ทดสอบสำเร็จ')
+        line_bot_api.reply_message(reply_token,text_message)
 
 if __name__ == "__main__":
     app.run(debug = True)
