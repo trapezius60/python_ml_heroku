@@ -44,16 +44,6 @@ def callback():
     print(body)
     return 'OK'
 
-@app.route('/linenotify', methods=['POST'])
-def linenotify():
-    url = 'https://notify-api.line.me/api/notify'
-    token = 'Ei5KLzQrNizl4HZfnQIFzKQeAZYoNYUUzcsWgSX5BWu'
-    headers = {'content-type':'application/x-www-form-urlencoded','Authorization':'Bearer '+token}
-
-    msg = 'ส่งข้อความ LINE Notify'
-    r = requests.post(url, headers=headers, data = {'message':msg})
-
-    print r.text
 
 if __name__ == "__main__":
     app.run(debug = True)
