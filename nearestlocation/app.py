@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, jsonify, request
+from flask import Flask, request, abort, jsonify
 import requests
 
 from linebot import (
