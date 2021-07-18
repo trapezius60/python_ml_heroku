@@ -1,16 +1,8 @@
 from flask import Flask, request, abort, jsonify
-import requests
+from linebot.models import *
+from linebot import *
 import json
-
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
-)
+import requests
 
 app = Flask(__name__)
 
@@ -54,21 +46,21 @@ def callback():
     intent = req['queryResult']['intent']['displayName'] 
     text = req['originalDetectIntentRequest']['payload']['data']['message']['text'] 
     reply_token = req['originalDetectIntentRequest']['payload']['data']['replyToken']
-    id = req['originalDetectIntentRequest']['payload']['data']['source']['userId']
+    userid = req['originalDetectIntentRequest']['payload']['data']['source']['userId']
     disname = line_bot_api.get_profile(id).display_name
 
-    print('id = ' + id)
+    print('id = ' + userid)
     print('name = ' + disname)
     print('text = ' + text)
     print('intent = ' + intent)
     print('reply_token = ' + reply_token)
     
-    reply(intent,text,reply_token,id,disname)
+    reply(intent,text,reply_token,userid,disname)
 
     return 'OK'
     
     
-def reply(intent,text,reply_token,id,disname):
+def reply(intent,text,reply_token,userid,disname):
     if intent == 'covid':
         data = requests.get('https://covid19.th-stat.com/json/covid19v2/getTodayCases.json')
         json_data = json.loads(data.text)
