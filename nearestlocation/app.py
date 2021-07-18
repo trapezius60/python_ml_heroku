@@ -1,5 +1,6 @@
 from flask import Flask, request, abort, jsonify
 import requests
+import json
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -47,29 +48,40 @@ handler = WebhookHandler('7f819199fc35d2461ceb0191d0fb304d')
 
 @app.route("/callback", methods=['POST'])
 def callback():
-    # get X-Line-Signature header value
-    signature = request.headers['X-Line-Signature']
-
-    # get request body as text
     body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
+    # print(body)
+    req = request.get_json(silent=True, force=True)
+    intent = req['queryResult']['intent']['displayName'] 
+    text = req['originalDetectIntentRequest']['payload']['data']['message']['text'] 
+    reply_token = req['originalDetectIntentRequest']['payload']['data']['replyToken']
+    id = req['originalDetectIntentRequest']['payload']['data']['source']['userId']
+    disname = line_bot_api.get_profile(id).display_name
 
-    # handle webhook body
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        print("Invalid signature. Please check your channel access token/channel secret.")
-        abort(400)
+    print('id = ' + id)
+    print('name = ' + disname)
+    print('text = ' + text)
+    print('intent = ' + intent)
+    print('reply_token = ' + reply_token)
+    
+    reply(intent,text,reply_token,id,disname)
 
     return 'OK'
+    
+    
+def reply(intent,text,reply_token,id,disname):
+    if intent == 'covid':
+        data = requests.get('https://covid19.th-stat.com/json/covid19v2/getTodayCases.json')
+        json_data = json.loads(data.text)
+        Confirmed = json_data['Confirmed']  # ติดเชื้อสะสม
+        Recovered = json_data['Recovered']  # หายแล้ว
+        Hospitalized = json_data['Hospitalized']  # รักษาอยู่ใน รพ.
+        Deaths = json_data['Deaths']  # เสียชีวิต
+        NewConfirmed = json_data['NewConfirmed']  # บวกเพิ่ม
+        text_message = TextSendMessage(
+            text='ติดเชื้อสะสม = {} คน(+เพิ่ม{})\nหายแล้ว = {} คน\nรักษาอยู่ใน รพ. = {} คน\nเสียชีวิต = {} คน'.format(
+                Confirmed, NewConfirmed, Recovered, Hospitalized, Deaths))
 
-
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text))
-
+        line_bot_api.reply_message(reply_token, text_message)
 
 if __name__ == "__main__":
     app.run()
