@@ -1,6 +1,15 @@
-import os
+from flask import Flask, request, abort, jsonify, request
 import requests
-from flask import Flask, jsonify, request
+
+from linebot import (
+    LineBotApi, WebhookHandler
+)
+from linebot.exceptions import (
+    InvalidSignatureError
+)
+from linebot.models import (
+    MessageEvent, TextMessage, TextSendMessage,
+)
 
 app = Flask(__name__)
 
@@ -24,76 +33,59 @@ data = [
 
 @app.route('/')
 def hello():
-    return "Hello Flask-Heroku"
+    return "Hello Flask-Heroku Github Python"
 
 
 @app.route('/api', methods=['GET'])
 def get_api():
     return jsonify(data)
 
-@app.route('/callback', methods=['POST'])
+from flask import Flask, request, abort
 
+from linebot import (
+    LineBotApi, WebhookHandler
+)
+from linebot.exceptions import (
+    InvalidSignatureError
+)
+from linebot.models import (
+    MessageEvent, TextMessage, TextSendMessage,
+)
+
+app = Flask(__name__)
+
+line_bot_api = LineBotApi('t8TS42nUWRlHempLf4OLMEf1xoNm96YHojEt71MgX96NGuA9qucXNT/4nJtBscYdXZt/ADJLVbqfcwIbdSrlqsW0s0z6i8GPPWtipaaGnOoj0UhNrGI7eeOXAzRf4A6s1hdq+CraBNPxexpYI3TwowdB04t89/1O/w1cDnyilFU=')
+handler = WebhookHandler('7f819199fc35d2461ceb0191d0fb304d')
+
+
+@app.route("/callback", methods=['POST'])
 def callback():
+    # get X-Line-Signature header value
+    signature = request.headers['X-Line-Signature']
 
-    json_line = request.get_json()
+    # get request body as text
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
 
-    json_line = json.dumps(json_line)
+    # handle webhook body
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        print("Invalid signature. Please check your channel access token/channel secret.")
+        abort(400)
 
-    decoded = json.loads(json_line)
+    return 'OK'
 
-    user = decoded["events"][0]['replyToken']
 
-    #id=[d['replyToken'] for d in user][0]
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=event.message.text))
 
-    #print(json_line)
-
-    print("ผู้ใช้：",user)
-
-    sendText(user,'งง') # ส่งข้อความ งง
-
-    return '',200
-
- 
-
-def sendText(user, text):
-
-    LINE_API = 'https://api.line.me/v2/bot/message/reply'
-
-    Authorization = 'Bearer t8TS42nUWRlHempLf4OLMEf1xoNm96YHojEt71MgX96NGuA9qucXNT/4nJtBscYdXZt/ADJLVbqfcwIbdSrlqsW0s0z6i8GPPWtipaaGnOoj0UhNrGI7eeOXAzRf4A6s1hdq+CraBNPxexpYI3TwowdB04t89/1O/w1cDnyilFU=' # ใส่ ENTER_ACCESS_TOKEN เข้าไป
-
- 
-
-    headers = {
-
-        'Content-Type': 'application/json; charset=UTF-8',
-
-        'Authorization':Authorization
-
-    }
-
- 
-
-    data = json.dumps({
-
-        "replyToken":user,
-
-        "messages":[{
-
-            "type":"text",
-
-            "text":text
-
-        }]
-
-    })
-
- 
-
-    #print("ข้อมูล：",data)
-
-    r = requests.post(LINE_API, headers=headers, data=data) # ส่งข้อมูล
-
-    #print(r.text)
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run()
+
+if __name__ == "__main__":
+    app.run()
