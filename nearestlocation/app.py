@@ -76,4 +76,4 @@ def reply(intent,text,reply_token,userid,disname):
         line_bot_api.reply_message(reply_token, text_message)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True)
