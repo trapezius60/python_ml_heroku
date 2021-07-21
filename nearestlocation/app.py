@@ -9,18 +9,18 @@ app = Flask(__name__)
 data = [
         {
             "id": 1,
-            "library": "Pandas",
-            "language": "Python"
+            "activity": "autopsy",
+            "case": "3"
         },
         {
             "id": 2,
-            "library": "requests",
-            "language": "Python"
+            "activity": "cfm",
+            "case": "5"
         },
         {
             "id": 3,
-            "library": "NumPy",
-            "language": "Python"
+            "activity": "scene",
+            "case": "1"
         }
     ]
 
