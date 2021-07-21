@@ -6,7 +6,9 @@ import requests
 
 app = Flask(__name__)
 
-data = [
+data = [{
+            "update":"21-07-2021"
+        },
         {
             "id": 1,
             "activity": "autopsy",
