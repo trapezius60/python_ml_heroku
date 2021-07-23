@@ -4,7 +4,17 @@ from linebot import *
 import json
 import requests
 
+#get other .py files
+from getIP import * #from file getIP.py
+from test import *
+from LineNotify import *
+
 app = Flask(__name__)
+
+#run other .py files on this coding page
+app.register_blueprint(getIP) #ให้ file getIP.py เชื่อมกับไฟล์นี้ ในตอนที่ runserver ได้
+app.register_blueprint(test)
+app.register_blueprint(LineNotify)
 
 data = [{
             "update":"21-07-2021"
@@ -29,16 +39,20 @@ data = [{
 #@app.route('/')
 #def hello():
  #   return "Hello Flask-Heroku Github Python"
-
+            
+@app.route('/')
+def main():
+    return render_template('index.html')
 
 @app.route('/api', methods=['GET'])
 def get_api():
     return jsonify(data)
 
-@app.route('/')
-def main():
-    return render_template('index.html')
-           
+@app.route('/ip')
+def getIP():
+    return render_template('getIP.html')
+
+
 line_bot_api = LineBotApi('t8TS42nUWRlHempLf4OLMEf1xoNm96YHojEt71MgX96NGuA9qucXNT/4nJtBscYdXZt/ADJLVbqfcwIbdSrlqsW0s0z6i8GPPWtipaaGnOoj0UhNrGI7eeOXAzRf4A6s1hdq+CraBNPxexpYI3TwowdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('7f819199fc35d2461ceb0191d0fb304d')
 
