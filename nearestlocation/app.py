@@ -35,7 +35,7 @@ def hello():
 def get_api():
     return jsonify(data)
 
-@app.route('/home', methods=['GET']
+@app.route('/home')
 def home():
     return render_template('index.html')
            
