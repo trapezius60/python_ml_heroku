@@ -2,7 +2,7 @@ from flask import Blueprint,render_template
 
 import socket
 
-getIP=Blueprint('getIP',__name__)
+getIP=Blueprint('ip',__name__)
 
 @getIP.route("/getIP")#default page of web
 
