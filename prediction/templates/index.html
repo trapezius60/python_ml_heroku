@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+<title>Predict Report timing</title>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='./style.css') }}">
+  
+</head>
+<body>
+ <div class="login">
+	<h1>Predict Insurance Bill</h1>
+
+     <!-- Form to enter new data for predictions  -->
+    <form action="{{ url_for('predict')}}"method="POST">
+      <input type="text" name="doctor" placeholder="docotr" required="required" /><br>
+    	<input type="text" name="patho" placeholder="patho" required="required" /><br>
+        <input type="text" name="toxico" placeholder="toxico" required="required" /><br>
+        <input type="text" name="other1" placeholder="other1" required="required" /><br>
+        <input type="text" name="other2" placeholder="other2" required="required" /><br>
+        <input type="text" name="other3" placeholder="other3" required="required" /><br>
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+   <br>
+   <br>
+  
+   
+ </div>
+ {{pred}}
+
+</body>
+</html>
