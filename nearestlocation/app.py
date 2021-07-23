@@ -26,16 +26,16 @@ data = [{
         }
     ]
 
-@app.route('/')
-def hello():
-    return "Hello Flask-Heroku Github Python"
+#@app.route('/')
+#def hello():
+ #   return "Hello Flask-Heroku Github Python"
 
 
 @app.route('/api', methods=['GET'])
 def get_api():
     return jsonify(data)
 
-@app.route('/home')
+@app.route('/')
 def main():
     return render_template('index.html')
            
