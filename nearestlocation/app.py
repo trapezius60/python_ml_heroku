@@ -6,15 +6,13 @@ import requests
 
 #get other .py files
 from getIP import * #from file getIP.py
-from test import *
-from LineNotify import *
+
 
 app = Flask(__name__)
 
 #run other .py files on this coding page
 app.register_blueprint(getIP) #ให้ file getIP.py เชื่อมกับไฟล์นี้ ในตอนที่ runserver ได้
-app.register_blueprint(test)
-app.register_blueprint(LineNotify)
+
 
 data = [{
             "update":"21-07-2021"
