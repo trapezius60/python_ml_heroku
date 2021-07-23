@@ -5,7 +5,7 @@ import socket
 getIP=Blueprint('getIP',__name__)
 
 @getIP.route("/getIP")#default page of web
-#@app.route("/test")#default page of web
+
 def getIPAddress(): #ชือ function ห้ามซ้ำกับชื่อ หลัง @
     hostname=socket.gethostname()
     IP=socket.gethostbyname(hostname)
