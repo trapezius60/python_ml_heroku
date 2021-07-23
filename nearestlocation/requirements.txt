@@ -8,4 +8,7 @@ MarkupSafe==1.1.1
 Werkzeug==1.0.1
 requests >= 2.0
 future
-
+pycaret==1.0.0
+Jinja2==2.10.1
+certifi==2019.11.28
+itsdangerous==1.1.0
