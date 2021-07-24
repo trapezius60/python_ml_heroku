@@ -3,6 +3,10 @@ from linebot.models import *
 from linebot import *
 import json
 import requests
+from pycaret.regression import *
+import pandas as pd
+import pickle
+import numpy as np
 
 #get other .py files
 from getIP import * #from file getIP.py
