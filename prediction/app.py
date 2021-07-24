@@ -14,8 +14,8 @@ from getIP import * #from file getIP.py
 
 app = Flask(__name__)
 
-model = load_model('deployment_28042020')
-cols = ['age', 'sex', 'bmi', 'children', 'smoker', 'region']
+model = load_model('deployment_df24072021')
+cols = ['PlaceDeath', 'Sex', 'I10', 'E119', 'E78', 'I21-25','N18', 'I61-9', 'UD-CVS-Risk', 'Alcohol-relatedunderlying', 'Numberofunderlyingdisease', 'Age','CODAsPDxLast-6-Mo']
 
 #run other .py files on this coding page
 app.register_blueprint(getIP) #ให้ file getIP.py เชื่อมกับไฟล์นี้ ในตอนที่ runserver ได้
@@ -56,7 +56,7 @@ def predict():
     data_unseen = pd.DataFrame([final], columns = cols)
     prediction = predict_model(model, data=data_unseen, round = 0)
     prediction = int(prediction.Label[0])
-    return render_template('index.html',pred='Expected date of report will be {}'.format(prediction))
+    return render_template('index.html',pred='Expected cause of death would be {}'.format(prediction))
 
 @app.route('/predict_api',methods=['POST'])
 def predict_api():
@@ -65,7 +65,6 @@ def predict_api():
     prediction = predict_model(model, data=data_unseen)
     output = prediction.Label[0]
     return jsonify(output)
-
 
 @app.route("/about")
 def about():
