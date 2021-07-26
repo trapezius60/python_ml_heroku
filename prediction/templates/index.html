@@ -13,8 +13,15 @@
   
 </head>
 <body>
+<!-- Navigation -->
+  <nav class="w3-bar w3-black">
+    <a href="#home" class="w3-button w3-bar-item">Home</a>
+    <a href="{{ url_for('about')}}" class="w3-button w3-bar-item">About</a>
+    <a href="#contact" class="w3-button w3-bar-item">Contact</a>
+
+  </nav>
  <div class="login">
-	<h1>index.html</h1>
+	<h1>this is home page</h1>
 	 
      <!-- Form to enter new data for predictions  
     <form action="{{ url_for('predict')}}"method="POST">
