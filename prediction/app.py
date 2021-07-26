@@ -14,8 +14,8 @@ from getIP import * #from file getIP.py
 
 app = Flask(__name__)
 
-model = load_model('deployment_df24072021')
-cols = ['PlaceDeath', 'Sex', 'I10', 'E119', 'E78', 'I21-25', 'N18', 'I61-9', 'UD-CVS-Risk', 'Alcohol-relatedunderlying', 'Numberofunderlyingdisease', 'Age', 'CODAsPDxLast-6-Mo']
+#model = load_model('deployment_df24072021')
+#cols = ['PlaceDeath', 'Sex', 'I10', 'E119', 'E78', 'I21-25', 'N18', 'I61-9', 'UD-CVS-Risk', 'Alcohol-relatedunderlying', 'Numberofunderlyingdisease', 'Age', 'CODAsPDxLast-6-Mo']
 
 #run other .py files on this coding page
 app.register_blueprint(getIP) #ให้ file getIP.py เชื่อมกับไฟล์นี้ ในตอนที่ runserver ได้
