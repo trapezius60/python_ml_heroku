@@ -3,7 +3,14 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="utf-8">
+<meta charset="utf-8">
+<!-- Code 3 บรรทัดถัดจากนี้ทำให้อ่านภาษาไทยได้ไม่ว่าเปิดด้วย browser ใด --> 
+<meta http-equiv="Content-Language" content="th"> 
+<meta http-equiv="content-Type" content="text/html; charset=window-874"> 
+<meta http-equiv="content-Type" content="text/html; charset=tis-620">  
+<meta name="Keywords" content="python, flask, dashboard">
+
+<meta name="Description" content="สำหรับทำ web app python flask">
 <title>Index page</title>
 <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
@@ -13,13 +20,21 @@
   
 </head>
 <body>
-<!-- Navigation -->
-  <nav class="w3-bar w3-black">
-    <a href="#home" class="w3-button w3-bar-item">Home</a>
-    <a href="{{ url_for('about')}}" class="w3-button w3-bar-item">About</a>
-    <a href="#contact" class="w3-button w3-bar-item">Contact</a>
-
-  </nav>
+<div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="#">Home</a>
+                    </li>
+                    <li role="presentation"><a href="#">About</a>
+                    </li>
+                    <li role="presentation"><a href="showSignUp">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">BH Python Flask App</h3>
+        </div>
+	
  <div class="login">
 	<h1>this is home page</h1>
 	 
