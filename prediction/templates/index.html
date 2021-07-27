@@ -24,12 +24,9 @@
         <div class="header">
             <nav>
                 <ul class="nav nav-pills pull-right">
-                    <li role="presentation" class="active"><a href="#">Home</a>
-                    </li>
-                    <li role="presentation"><a href="#">About</a>
-                    </li>
-                    <li role="presentation"><a href="showSignUp">Contact</a>
-                    </li>
+                    <a href="#home" class="w3-button w3-bar-item">Home</a>>Home</a>
+                    <a href="{{ url_for('about')}}" class="w3-button w3-bar-item">About</a>
+                    <a href="#contact" class="w3-button w3-bar-item">Contact</a>
                 </ul>
             </nav>
             <h3 class="text-muted">BH Python Flask App</h3>
@@ -63,6 +60,6 @@
    
  </div>
 <!-- {{pred}}-->
-
+</div>
 </body>
 </html>
