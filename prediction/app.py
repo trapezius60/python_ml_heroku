@@ -80,7 +80,7 @@ line_bot_api = LineBotApi('t8TS42nUWRlHempLf4OLMEf1xoNm96YHojEt71MgX96NGuA9qucXN
 handler = WebhookHandler('7f819199fc35d2461ceb0191d0fb304d')
 
 
-@app.route("/callback", methods=['POST','GET'])
+@app.route("/callback", methods=['POST'])
 def webhook():
     if request.method == 'POST':
        payload = request.json
